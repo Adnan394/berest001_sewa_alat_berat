@@ -23,12 +23,12 @@
 </style>
     <main id="main" class="main">
         <div class="pagetitle">
-            <h1>Tambah Service</h1>
+            <h1>Tambah Berita</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item">Service</li>
-                    <li class="breadcrumb-item active">Tambah Service</li>
+                    <li class="breadcrumb-item">Berita</li>
+                    <li class="breadcrumb-item active">Tambah Berita</li>
                 </ol>
             </nav>
         </div>
@@ -41,7 +41,7 @@
                         <div class="card p-3">
                             <div class="card-body">
                                 <h5 class="card-title">Tambah Data</h5>
-                                <form action="{{ route('service.store') }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('berita.store') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
                                         <div class="col-12 col-md-7">
@@ -105,7 +105,7 @@
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-primary">Save</button>
-                                    <a href="{{ route('service.index') }}" type="button" class="btn btn-secondary">cancel</a>
+                                    <a href="{{ route('berita.index') }}" type="button" class="btn btn-secondary">cancel</a>
                                 </form>
                             </div>
                         </div>

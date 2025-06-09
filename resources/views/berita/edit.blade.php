@@ -23,12 +23,12 @@
 </style>
     <main id="main" class="main">
         <div class="pagetitle">
-            <h1>Tambah Service</h1>
+            <h1>Tambah Berita</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item">Service</li>
-                    <li class="breadcrumb-item active">Tambah Service</li>
+                    <li class="breadcrumb-item">Berita</li>
+                    <li class="breadcrumb-item active">Tambah Berita</li>
                 </ol>
             </nav>
         </div>
@@ -41,7 +41,8 @@
                         <div class="card p-3">
                             <div class="card-body">
                                 <h5 class="card-title">Tambah Data</h5>
-                                <form action="{{ route('service.store') }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('berita.update', $data->id) }}" method="POST" enctype="multipart/form-data">
+                                    @method('PUT')
                                     @csrf
                                     <div class="row">
                                         <div class="col-12 col-md-7">
@@ -49,7 +50,7 @@
                                                 <div class="col">
                                                     <div class="mb-3">
                                                         <label for="judul" class="form-label">Judul</label>
-                                                        <input type="text" name="judul" class="form-control" id="judul">
+                                                        <input type="text" name="judul" class="form-control" id="judul" value="{{ $data->title }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -57,7 +58,7 @@
                                                 <div class="col">
                                                     <div class="mb-3">
                                                         <label for="deskripsi" class="form-label">Deskripsi</label>
-                                                        <textarea type="text" name="deskripsi" class="form-control" id="deskripsi" rows="8" ></textarea>
+                                                        <textarea type="text" name="deskripsi" class="form-control" id="deskripsi" rows="8">{{ $data->description }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -68,21 +69,22 @@
                                                         <label class="upload-wrapper" id="uploadLabel">
                                                             <p>Klik atau tarik gambar ke sini</p>
                                                             <img id="preview" src="#" alt="Preview" style="display: none;" />
-                                                            <input type="file" accept="image/*" name="image" id="inputGroupFile01">
+                                                            <input type="file" accept="image/*" name="image" value="{{ $data->image }}" id="inputGroupFile01">
                                                         </label>
                                                     </div>
                                                     <div class="mt-2 d-flex justify-content-center mt-3">
-                                                        <img id="previewImg" src="" alt="" style="max-width: 200px; max-height: 200px;">
+                                                        <img id="previewImg" src="{{ asset($data->image) }}" alt="" style="max-width: 200px; max-height: 200px;">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-12 col-md-5 border border-3 rounded-3 p-3">
+                                            <h5>Meta Tag</h5>
                                             <div class="row">
                                                 <div class="col">
                                                     <div class="mb-3">
                                                         <label for="meta_title" class="form-label">Meta Title</label>
-                                                        <input type="text" name="meta_title" class="form-control" id="meta_title">
+                                                        <input type="text" name="meta_title" class="form-control" value="{{ $meta->title }}" id="meta_title">
                                                     </div>
                                                 </div>
                                             </div>
@@ -90,7 +92,7 @@
                                                 <div class="col">
                                                     <div class="mb-3">
                                                         <label for="meta_description" class="form-label">Meta Description</label>
-                                                        <textarea class="form-control" name="meta_description" id="meta_description" rows="8"></textarea>
+                                                        <textarea class="form-control" name="meta_description" id="meta_description" rows="8">{{ $meta->description }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -98,14 +100,14 @@
                                                 <div class="col">
                                                     <div class="mb-3">
                                                         <label for="meta_keyword" class="form-label">Meta Keyword</label>
-                                                        <textarea class="form-control" name="meta_keywords" id="meta_keyword" rows="8"></textarea>
+                                                        <textarea class="form-control" name="meta_keywords" id="meta_keyword" rows="8">{{ $meta->keywords }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-primary">Save</button>
-                                    <a href="{{ route('service.index') }}" type="button" class="btn btn-secondary">cancel</a>
+                                    <a href="{{ route('berita.index') }}" type="button" class="btn btn-secondary">cancel</a>
                                 </form>
                             </div>
                         </div>

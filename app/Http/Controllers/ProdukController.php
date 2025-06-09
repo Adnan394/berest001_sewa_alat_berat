@@ -3,24 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\Meta;
-use App\Models\Service;
+use App\Models\Produk;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 
-class ServiceController extends Controller
+class ProdukController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $data = Service::all();
-        return view('service.index', [
+        $data = Produk::all();
+        return view('produk.index', [
             'data' => $data,
-            'active' => 'service'
+            'active' => 'produk'
         ]);
     }
 
@@ -29,8 +29,8 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        return view('service.create', [
-            'active' => 'service'
+        return view('produk.create', [
+            'active' => 'produk'
         ]);
     }
 
@@ -45,29 +45,39 @@ class ServiceController extends Controller
             if($request->hasFile('image')) {
                 $image = $request->file('image');
                 $filename = $image->getClientOriginalName(); // Ambil nama file asli
-                $image->move(public_path('img/service'), $filename);
-                $image = 'img/service/' . $filename;
+                $image->move(public_path('img/produk'), $filename);
+                $image = 'img/produk/' . $filename;
             }
+            
+            $docs = "";
+            if($request->hasFile('docs')) {
+                $docs = $request->file('docs');
+                $filename = $docs->getClientOriginalName(); // Ambil nama file asli
+                $docs->move(public_path('docs'), $filename);
+                $docs = 'docs/' . $filename;
+            }
+
             $meta = Meta::create([
                 'title' => $request->meta_title,
                 'description' => $request->meta_description,
                 'keywords' => $request->meta_keywords,
                 'author' => "Rafa Jaya Crane"
             ]);
-
-            Service::create([
+            
+            Produk::create([
                 'title' => $request->judul,
                 'slug' => Str::slug($request->judul),
                 'description' => $request->deskripsi,
                 'image' => $image,
+                'dokumen' => $docs,
                 'id_meta' => $meta->id
             ]);
 
             DB::commit();
-            return redirect()->route('service.index')->with('success', 'Data Service Berhasil Ditambahkan!');
+            return redirect()->route('produk.index')->with('success', 'Data Produk Berhasil Ditambahkan!');
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->route('service.index')->with('error', 'Data Service Gagal Ditambahkan! Error: ' . $e->getMessage());
+            return redirect()->route('produk.index')->with('error', 'Data Produk Gagal Ditambahkan! Error: ' . $e->getMessage());
         }
     }
 
@@ -84,10 +94,10 @@ class ServiceController extends Controller
      */
     public function edit(string $id)
     {
-        $data = Service::where('id', $id)->first();
-        return view('service.edit', [
+        $data = Produk::where('id', $id)->first();
+        return view('produk.edit', [
             'data' => $data,
-            'active' => 'service',
+            'active' => 'produk',
             'meta' => Meta::where('id', $data->id_meta)->first()
         ]);
     }
@@ -103,30 +113,40 @@ class ServiceController extends Controller
             if($request->hasFile('image')) {
                 $image = $request->file('image');
                 $filename = $image->getClientOriginalName(); // Ambil nama file asli
-                $image->move(public_path('img/service'), $filename);
-                $image = 'img/service/' . $filename;
+                $image->move(public_path('img/produk'), $filename);
+                $image = 'img/produk/' . $filename;
+            }
+            $docs = "";
+            if($request->hasFile('docs')) {
+                $docs = $request->file('docs');
+                $filename = $docs->getClientOriginalName(); // Ambil nama file asli
+                $docs->move(public_path('docs'), $filename);
+                $docs = 'docs/' . $filename;
             }
 
-            $data = Service::where('id', $id)->first();
+            $data = Produk::where('id', $id)->first();
             $data->title = $request->judul;
             $data->slug = Str::slug($request->judul);
             $data->description = $request->deskripsi;
-            if(isset($image)) {
+            if (isset($image)) {
                 $data->image = $image;
             }
+            if (isset($docs)) {
+                $data->dokumen = $docs;
+            }
             $data->save();
-            
-            $meta = Meta::where('id', Service::where('id', $id)->first()->id_meta)->first();
+
+            $meta = Meta::where('id', Produk::where('id', $id)->first()->id_meta)->first();
             $meta->title = $request->meta_title;
             $meta->description = $request->meta_description;
             $meta->keywords = $request->meta_keywords;
             $meta->save();
-
+            
             DB::commit();
-            return redirect()->route('service.index')->with('success', 'Data Service Berhasil Diubah!');
+            return redirect()->route('produk.index')->with('success', 'Data Produk Berhasil Diubah!');
         } catch (\Throwable $th) {
             DB::rollBack();
-            return redirect()->route('service.index')->with('error', 'Data Service Gagal Diubah! Error: ' . $th->getMessage());
+            return redirect()->route('produk.index')->with('error', 'Data Produk Gagal Diubah! Error: ' . $th->getMessage());
         }
     }
 
@@ -137,16 +157,16 @@ class ServiceController extends Controller
     {
         DB::beginTransaction();
         try {
-            $service = Service::find($id);
-            $service->delete();
+            $produk = Produk::find($id);
+            $produk->delete();
 
-            $meta = Meta::where('id', $service->id_meta)->first();
+            $meta = Meta::where('id', $produk->id_meta)->first();
             $meta->delete();
             DB::commit();
-            return redirect()->route('service.index')->with('success', 'Data Service Berhasil Dihapus!');
+            return redirect()->route('produk.index')->with('success', 'Data Produk Berhasil Dihapus!');
         } catch (\Throwable $th) {
             DB::rollBack();
-            return redirect()->route('service.index')->with('error', 'Data Service Gagal Dihapus! Error: ' . $th->getMessage());
+            return redirect()->route('produk.index')->with('error', 'Data Produk Gagal Dihapus! Error: ' . $th->getMessage());
         }
     }
 }

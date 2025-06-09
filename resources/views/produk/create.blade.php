@@ -23,12 +23,12 @@
 </style>
     <main id="main" class="main">
         <div class="pagetitle">
-            <h1>Tambah Service</h1>
+            <h1>Tambah Produk</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item">Service</li>
-                    <li class="breadcrumb-item active">Tambah Service</li>
+                    <li class="breadcrumb-item">Produk</li>
+                    <li class="breadcrumb-item active">Tambah Produk</li>
                 </ol>
             </nav>
         </div>
@@ -41,7 +41,7 @@
                         <div class="card p-3">
                             <div class="card-body">
                                 <h5 class="card-title">Tambah Data</h5>
-                                <form action="{{ route('service.store') }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('produk.store') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
                                         <div class="col-12 col-md-7">
@@ -68,11 +68,19 @@
                                                         <label class="upload-wrapper" id="uploadLabel">
                                                             <p>Klik atau tarik gambar ke sini</p>
                                                             <img id="preview" src="#" alt="Preview" style="display: none;" />
-                                                            <input type="file" accept="image/*" name="image" id="inputGroupFile01">
+                                                            <input type="file" accept="image/*"  name="image" id="inputGroupFile01">
                                                         </label>
                                                     </div>
                                                     <div class="mt-2 d-flex justify-content-center mt-3">
-                                                        <img id="previewImg" src="" alt="" style="max-width: 200px; max-height: 200px;">
+                                                        <img id="previewImg"src="" alt="" style="max-width: 200px; max-height: 200px;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="mb-3">
+                                                        <label for="dokumen" class="form-label">Dokumen</label>
+                                                        <input type="file" accept="application/pdf" name="docs" class="form-control" id="">
                                                     </div>
                                                 </div>
                                             </div>
@@ -105,7 +113,7 @@
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-primary">Save</button>
-                                    <a href="{{ route('service.index') }}" type="button" class="btn btn-secondary">cancel</a>
+                                    <a href="{{ route('produk.index') }}" type="button" class="btn btn-secondary">cancel</a>
                                 </form>
                             </div>
                         </div>
@@ -137,4 +145,5 @@
         });
     </script>
 @endsection
+
 

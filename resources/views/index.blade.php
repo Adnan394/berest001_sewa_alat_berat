@@ -30,34 +30,14 @@
             <div class="d-block mx-auto mb-5" style="height: 5px; width: 150px; background-color: #E89B1A"></div>
             <h3 class="text-center mb-3">Pilihan Rental Kami Lengkap!</h3>
             <div class="d-flex justify-content-center gap-3 flex-wrap">
-                <div class="card" style="width: 12rem">
-                    <img loading="lazy" src="{{ asset('assets/img/forklift.png') }}" class="card-img-top" style="height: 100px; object-fit: cover" alt="...">
-                    <div class="card-body">
-                        <p style="font-size: 14px; font-weight: bold" class="card-title fw-semibold">Jasa Sewa Forklift</p>
-                    </div>
-                </div>
-                <div class="card" style="width: 12rem">
-                    <img loading="lazy" src="{{ asset('assets/img/crane.jpg') }}" class="card-img-top" style="height: 100px; object-fit: cover" alt="...">
-                    <div class="card-body">
-                        <p style="font-size: 14px; font-weight: bold" class="card-title fw-semibold">Rental Crane</p>
-                    </div>
-                </div>
-                <div class="card" style="width: 12rem">
-                    <img loading="lazy" src="{{ asset('assets/img/truck.jpg') }}" class="card-img-top" style="height: 100px; object-fit: cover" alt="...">
-                    <div class="card-body">
-                        <p style="font-size: 14px; font-weight: bold" class="card-title fw-semibold">Sewa Truk</p>
-                    </div>
-                </div>
-                <div class="card" style="width: 12rem">
-                    <img loading="lazy" src="{{ asset('assets/img/exavator.jpg') }}" class="card-img-top" style="height: 100px; object-fit: cover" alt="...">
-                    <div class="card-body">
-                        <p style="font-size: 14px; font-weight: bold" class="card-title fw-semibold">Sewa Exacavator</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="d-flex justify-content-center mt-5">
-                <a href="#" class="btn fw-semibold" style="background: #E89B1A">Lihat Semua Layanan</a>
+                @foreach ($services as $service)
+                    <a href="/service/{{ $service->slug }}" class="card text-decoration-none text-dark" style="width: 16rem">
+                        <img loading="lazy" src="{{ asset($service->image) }}" class="card-img-top" style="height: 150px; object-fit: cover" alt="...">
+                        <div class="card-body">
+                            <p style="font-size: 16px; font-weight: bold" class="card-title fw-semibold">{{ $service->title }}</p>
+                        </div>
+                    </a>
+                @endforeach
             </div>
         </div>
     </section>
@@ -76,7 +56,7 @@
                     <h2>Jasa Melayani Seluruh Wilayah Indonesia</h2>
                     <img loading="lazy" src="{{ asset('assets/img/peta.png') }}" width="100%" alt="">
                 </div>
-                <div class="col-5 d-none d-md-block" style="background-image: url({{ asset('assets/img/man-truck.jpg') }}); background-size: cover; background-position: center"></div>
+                <div class="col-5 d-none d-md-block" style="background-image: url({{ asset('assets/img/crane.jpg') }}); background-size: cover; background-position: center"></div>
             </div>
             
         </div>
@@ -105,23 +85,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr><td>1</td><td>Tol Pekanbaru - Padang</td><td>PT. Wijaya Karya (Persero).Tbk</td><td>2021</td></tr>
-                <tr><td>2</td><td>Terminal Terpadu Kijing - Kalbar</td><td>PT. Wijaya Karya (Persero).Tbk</td><td>2021</td></tr>
-                <tr><td>3</td><td>High Speed Rail Jakarta - Bandung</td><td>PT. Zhongyin Tiange Trade</td><td>2021</td></tr>
-                <tr><td>4</td><td>PT. HYUNDAI Motor Manufacturing Indonesia, Bekasi</td><td>PT. Shin Bangun Indorayaa</td><td>2021</td></tr>
-                <tr><td>5</td><td>Renovasi Plaza Sarinah, Jakarta Pusat</td><td>PT. Nikko Steel Indonesia</td><td>2021</td></tr>
-                <tr><td>6</td><td>Tangguh Expansion Project, Papua</td><td>CSTS</td><td>2020</td></tr>
-                <tr><td>7</td><td>PT. MC PET Filmm Indonesia, Banten</td><td>PT. Amano Indonesia</td><td>2020</td></tr>
-                <tr><td>8</td><td>PT. BBPI British Petroleum, Banten</td><td>PT. Sinar Samudera Abadi</td><td>2020</td></tr>
-                <tr><td>9</td><td>Erection Girder Tol Serang Panimbang, Banten</td><td>PT. Wijaya Karya (Persero). Tbk</td><td>2020</td></tr>
-                <tr><td>10</td><td>Tol Bogor Outer Ring Road, Bogor</td><td>PT. PP (Persero). Tbk</td><td>2018 - 2020</td></tr>
-                <tr><td>11</td><td>Erection Girder Tol Trans Sumatera</td><td>PT. PP (Persero). Tbk</td><td>2020</td></tr>
-                <tr><td>12</td><td>Erection Girder Tol Trans Sumatera</td><td>PT. Adhi Karya. Tbk</td><td>2017 - 2018</td></tr>
-                <tr><td>13</td><td>Erection Girder Tol Trans Sumatera</td><td>PT. Waskita Karya. Tbk</td><td>2017 - 2018</td></tr>
-                <tr><td>14</td><td>Lampung - Kayu Agung</td><td>PT. Waskita Karya. Tbk</td><td>2017 - 2018</td></tr>
-                <tr><td>15</td><td>Erection Girder Tol Trans Sumatera 40 KM</td><td>PT. PP (Persero). Tbk</td><td>2017 - 2018</td></tr>
-                <tr><td>16</td><td>Erection Girder Tol Palembang - Batang</td><td>PT. Waskita Karya. Tbk</td><td>2017</td></tr>
-                <tr><td>17</td><td>and many more</td><td></td><td></td></tr>
+                    @foreach ($portofolio as $item)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $item->name }}</td>
+                            <td>{{ $item->partner }}</td>
+                            <td>{{ $item->year }}</td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -134,34 +105,18 @@
             <div class="d-block mx-auto mb-5" style="height: 5px; width: 150px; background-color: #E89B1A"></div>
             <h3 class="text-center mb-3">Produk Yang Kami Tawarkan Lengkap!</h3>
             <div class="d-flex justify-content-center gap-3 flex-wrap">
-                <div class="card" style="width: 12rem">
-                    <img loading="lazy" src="{{ asset('assets/img/forklift.png') }}" class="card-img-top" style="height: 100px; object-fit: cover" alt="...">
-                    <div class="card-body">
-                        <p style="font-size: 14px; font-weight: bold" class="card-title fw-semibold">Jasa Sewa Forklift</p>
+                @foreach ($produk as $item)
+                    <div class="card" style="width: 16rem">
+                        <img loading="lazy" src="{{ asset($item->image) }}" class="card-img-top" style="height: 150px; object-fit: cover" alt="...">
+                        <div class="card-body">
+                            <p style="font-size: 16px; font-weight: bold" class="card-title fw-semibold">{{ $item->title }}</p>
+                        </div>
                     </div>
-                </div>
-                <div class="card" style="width: 12rem">
-                    <img loading="lazy" src="{{ asset('assets/img/crane.jpg') }}" class="card-img-top" style="height: 100px; object-fit: cover" alt="...">
-                    <div class="card-body">
-                        <p style="font-size: 14px; font-weight: bold" class="card-title fw-semibold">Rental Crane</p>
-                    </div>
-                </div>
-                <div class="card" style="width: 12rem">
-                    <img loading="lazy" src="{{ asset('assets/img/truck.jpg') }}" class="card-img-top" style="height: 100px; object-fit: cover" alt="...">
-                    <div class="card-body">
-                        <p style="font-size: 14px; font-weight: bold" class="card-title fw-semibold">Sewa Truk</p>
-                    </div>
-                </div>
-                <div class="card" style="width: 12rem">
-                    <img loading="lazy" src="{{ asset('assets/img/exavator.jpg') }}" class="card-img-top" style="height: 100px; object-fit: cover" alt="...">
-                    <div class="card-body">
-                        <p style="font-size: 14px; font-weight: bold" class="card-title fw-semibold">Sewa Exacavator</p>
-                    </div>
-                </div>
+                @endforeach
             </div>
 
             <div class="d-flex justify-content-center mt-5">
-                <a href="#" class="btn fw-semibold" style="background: #E89B1A">Lihat Semua Layanan</a>
+                <a href="" class="btn fw-semibold" style="background: #E89B1A">Lihat Semua Produk</a>
             </div>
         </div>
     </section>
@@ -187,21 +142,40 @@
         </div>
     </section>
 
+    <section id="berita" class="mb-5">
+        <div class="container">
+            <h1 class="text-center mt-5">Berita</h1>
+            <div class="d-block mx-auto mb-5" style="height: 5px; width: 150px; background-color: #E89B1A"></div>
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+                @foreach ($berita as $item)
+                    <div class="card" style="width: 16rem; position: relative">
+                        <img loading="lazy" src="{{ asset($item->image) }}" class="card-img-top" style="height: 150px; object-fit: cover" alt="...">
+                        <span class="position-absolute badge rounded-pill bg-danger" style="font-size: 10px; z-index: 1 ; top: 10px; left: 10px">
+                            Trending
+                        </span>
+                        <div class="card-body px-2 py-1">
+                            <span style="font-size: 10px">{{ \Carbon\Carbon::parse($item->created_at)->diffForHumans() }}</span>
+                            <p style="font-size: 14px" class="card-title fw-semibold">{{ $item->title }}</p>
+                            <p style="font-size: 12px" class="card-text">{{ Str::limit($item->description, 100) }}</p>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <a href="" class="btn mt-3 fw-semibold" style="background-color: #E89B1A">Lihat Berita Lainya</a>
+            </div>
+        </div>
+    </section>
+
     <section id="gallery" class="mb-5">
         <div class="container">
             <h1 class="text-center mt-5">Gallery</h1>
             <div class="d-block mx-auto mb-5" style="height: 5px; width: 150px; background-color: #E89B1A"></div>
             <div class="d-flex flex-wrap justify-content-center gap-3">
-                <img loading="lazy" src="{{ asset('assets/img/gallery/gallery1.jpg') }}" class="card-img-top gallery" alt="Gallery Image">
-                <img loading="lazy" src="{{ asset('assets/img/gallery/gallery2.jpg') }}" class="card-img-top gallery" alt="Gallery Image">
-                <img loading="lazy" src="{{ asset('assets/img/gallery/gallery3.jpg') }}" class="card-img-top gallery" alt="Gallery Image">
-                <img loading="lazy" src="{{ asset('assets/img/gallery/gallery4.jpg') }}" class="card-img-top gallery" alt="Gallery Image">
-                <img loading="lazy" src="{{ asset('assets/img/gallery/gallery5.jpg') }}" class="card-img-top gallery" alt="Gallery Image">
-                <img loading="lazy" src="{{ asset('assets/img/gallery/gallery6.jpg') }}" class="card-img-top gallery" alt="Gallery Image">
-                <img loading="lazy" src="{{ asset('assets/img/gallery/gallery7.jpg') }}" class="card-img-top gallery" alt="Gallery Image">
-                <img loading="lazy" src="{{ asset('assets/img/gallery/gallery8.jpg') }}" class="card-img-top gallery" alt="Gallery Image">
-                <img loading="lazy" src="{{ asset('assets/img/gallery/gallery9.jpg') }}" class="card-img-top gallery" alt="Gallery Image">
-                <img loading="lazy" src="{{ asset('assets/img/gallery/gallery10.jpg') }}" class="card-img-top gallery" alt="Gallery Image">
+                @foreach ($gallery as $item)
+                    <img loading="lazy" src="{{ asset($item->image) }}" class="card-img-top gallery" alt="Alat Berat">
+                @endforeach
             </div>
 
             <div class="d-flex justify-content-center">

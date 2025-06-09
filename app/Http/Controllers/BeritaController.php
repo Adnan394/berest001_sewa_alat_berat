@@ -3,24 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Meta;
-use App\Models\Service;
+use App\Models\Berita;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
 
-class ServiceController extends Controller
+class BeritaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $data = Service::all();
-        return view('service.index', [
+        $data = Berita::all();
+        return view('berita.index', [
             'data' => $data,
-            'active' => 'service'
+            'active' => 'berita'
         ]);
     }
 
@@ -29,8 +27,8 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        return view('service.create', [
-            'active' => 'service'
+        return view('berita.create', [
+            'active' => 'berita'
         ]);
     }
 
@@ -39,35 +37,32 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        DB::beginTransaction();
         try {
-            $image = "";
+            $filename = "";
             if($request->hasFile('image')) {
                 $image = $request->file('image');
                 $filename = $image->getClientOriginalName(); // Ambil nama file asli
-                $image->move(public_path('img/service'), $filename);
-                $image = 'img/service/' . $filename;
+                $image->move(public_path('img/berita'), $filename);
+                $filename = 'img/berita/' . $filename;
             }
+
             $meta = Meta::create([
                 'title' => $request->meta_title,
                 'description' => $request->meta_description,
                 'keywords' => $request->meta_keywords,
                 'author' => "Rafa Jaya Crane"
             ]);
-
-            Service::create([
+            Berita::create([
                 'title' => $request->judul,
                 'slug' => Str::slug($request->judul),
                 'description' => $request->deskripsi,
-                'image' => $image,
+                'image' => $filename,
                 'id_meta' => $meta->id
             ]);
 
-            DB::commit();
-            return redirect()->route('service.index')->with('success', 'Data Service Berhasil Ditambahkan!');
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return redirect()->route('service.index')->with('error', 'Data Service Gagal Ditambahkan! Error: ' . $e->getMessage());
+            return redirect()->route('berita.index')->with('success', 'Data Berita Berhasil Ditambahkan!');
+        } catch (\Throwable $th) {
+            throw $th;
         }
     }
 
@@ -84,11 +79,10 @@ class ServiceController extends Controller
      */
     public function edit(string $id)
     {
-        $data = Service::where('id', $id)->first();
-        return view('service.edit', [
-            'data' => $data,
-            'active' => 'service',
-            'meta' => Meta::where('id', $data->id_meta)->first()
+        return view('berita.edit', [
+            'data' => Berita::where('id', $id)->first(),
+            'meta' => Meta::where('id', Berita::where('id', $id)->first()->id_meta)->first(),
+            'active' => 'berita'
         ]);
     }
 
@@ -97,36 +91,30 @@ class ServiceController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        DB::beginTransaction();
-
         try {
             if($request->hasFile('image')) {
                 $image = $request->file('image');
                 $filename = $image->getClientOriginalName(); // Ambil nama file asli
-                $image->move(public_path('img/service'), $filename);
-                $image = 'img/service/' . $filename;
+                $image->move(public_path('img/berita'), $filename);
+                $data = Berita::where('id', $id)->first();
+                $data->image = 'img/berita/' . $filename;
+                $data->save();
             }
 
-            $data = Service::where('id', $id)->first();
+            $data = Berita::where('id', $id)->first();
             $data->title = $request->judul;
             $data->slug = Str::slug($request->judul);
             $data->description = $request->deskripsi;
-            if(isset($image)) {
-                $data->image = $image;
-            }
             $data->save();
-            
-            $meta = Meta::where('id', Service::where('id', $id)->first()->id_meta)->first();
+
+            $meta = Meta::where('id', $data->id_meta)->first();
             $meta->title = $request->meta_title;
             $meta->description = $request->meta_description;
             $meta->keywords = $request->meta_keywords;
             $meta->save();
-
-            DB::commit();
-            return redirect()->route('service.index')->with('success', 'Data Service Berhasil Diubah!');
+            return redirect()->route('berita.index')->with('success', 'Data Berita Berhasil Diubah!');
         } catch (\Throwable $th) {
-            DB::rollBack();
-            return redirect()->route('service.index')->with('error', 'Data Service Gagal Diubah! Error: ' . $th->getMessage());
+            throw $th;
         }
     }
 
@@ -135,18 +123,15 @@ class ServiceController extends Controller
      */
     public function destroy(string $id)
     {
-        DB::beginTransaction();
         try {
-            $service = Service::find($id);
-            $service->delete();
+            $data = Berita::where('id', $id)->first();
+            $data->delete();
 
-            $meta = Meta::where('id', $service->id_meta)->first();
+            $meta = Meta::where('id', $data->id_meta)->first();
             $meta->delete();
-            DB::commit();
-            return redirect()->route('service.index')->with('success', 'Data Service Berhasil Dihapus!');
+            return redirect()->route('berita.index')->with('success', 'Data Berita Berhasil Dihapus!');
         } catch (\Throwable $th) {
-            DB::rollBack();
-            return redirect()->route('service.index')->with('error', 'Data Service Gagal Dihapus! Error: ' . $th->getMessage());
+            throw $th;
         }
     }
 }

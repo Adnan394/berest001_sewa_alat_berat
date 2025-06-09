@@ -3,11 +3,11 @@
 <main id="main" class="main">
     
     <div class="pagetitle">
-      <h1>Data Service</h1>
+      <h1>Data Produk</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">Data Service</li>
+          <li class="breadcrumb-item active">Data Produk</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -19,8 +19,7 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Data</h5>
-              <a href="{{ route('service.create') }}" class="btn btn-primary justify-content-end mb-3">Tambah Data Service</a>
-              <!-- Table with stripped rows -->
+              <a href="{{ route('produk.create') }}" class="btn btn-primary justify-content-end mb-3">Tambah Data Produk</a>
               <table class="table datatable">
                 <thead>
                   <tr>
@@ -28,6 +27,7 @@
                     <th scope="col">Foto</th>
                     <th scope="col">Judul</th>
                     <th scope="col">Deskripsi</th>
+                    <th scope="col">Dokumen</th>
                     <th scope="col">Aksi</th>
                   </tr>
                 </thead>
@@ -38,9 +38,10 @@
                         <td><a href="{{ asset($item->image) }}" target="_blank"><img width="50px" src="{{ asset($item->image) }}" alt=""></a></td>
                         <td>{{ $item->title }}</td>
                         <td>{{ $item->description }}</td>
+                        <td><a href="{{ asset($item->dokumen) }}" target="_blank">Lihat</a></td>
                         <td>
-                            <a href="{{ route('service.edit', $item->id) }}" class="btn btn-warning mb-2"><i class="bi bi-pencil"></i></a>
-                            <form action="{{ route('service.destroy', $item->id) }}" method="POST">
+                            <a href="{{ route('produk.edit', $item->id) }}" class="btn btn-warning mb-2"><i class="bi bi-pencil"></i></a>
+                            <form action="{{ route('produk.destroy', $item->id) }}" method="POST">
                                 @method('DELETE')
                                 @csrf
                                 <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button>

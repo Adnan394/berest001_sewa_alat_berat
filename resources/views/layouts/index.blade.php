@@ -68,10 +68,13 @@
                         <a class="nav-link" href="/#produk">Produk</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Galeri</a>
+                        <a class="nav-link" href="/#portofolio">Portofolio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/#portofolio">Portofolio</a>
+                        <a class="nav-link" href="/#gallery">Galeri</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/#berita">Berita</a>
                     </li>
                     <li class="nav-item">
                         <a href="https://wa.me/6281381012840" target="_blank" class="btn text-dark fw-semibold" style="background: #E89B1A"><i class="bi bi-whatsapp me-2"></i>Hubungi Kami</a>

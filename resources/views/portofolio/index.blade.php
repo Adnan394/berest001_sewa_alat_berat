@@ -3,11 +3,11 @@
 <main id="main" class="main">
     
     <div class="pagetitle">
-      <h1>Data Service</h1>
+      <h1>Data Portofolio</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">Data Service</li>
+          <li class="breadcrumb-item active">Data Portofolio</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -19,15 +19,15 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Data</h5>
-              <a href="{{ route('service.create') }}" class="btn btn-primary justify-content-end mb-3">Tambah Data Service</a>
+              <a href="{{ route('portofolio.create') }}" class="btn btn-primary justify-content-end mb-3">Tambah Data Portofolio</a>
               <!-- Table with stripped rows -->
               <table class="table datatable">
                 <thead>
                   <tr>
                     <th scope="col">No</th>
-                    <th scope="col">Foto</th>
-                    <th scope="col">Judul</th>
-                    <th scope="col">Deskripsi</th>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Partner</th>
+                    <th scope="col">Tahun</th>
                     <th scope="col">Aksi</th>
                   </tr>
                 </thead>
@@ -35,12 +35,12 @@
                     @foreach ($data as $item)
                         <tr>
                         <th scope="row">{{ $loop->iteration }}</th>
-                        <td><a href="{{ asset($item->image) }}" target="_blank"><img width="50px" src="{{ asset($item->image) }}" alt=""></a></td>
-                        <td>{{ $item->title }}</td>
-                        <td>{{ $item->description }}</td>
+                        <td>{{ $item->name }}</td>
+                        <td>{{ $item->partner }}</td>
+                        <td>{{ $item->year }}</td>
                         <td>
-                            <a href="{{ route('service.edit', $item->id) }}" class="btn btn-warning mb-2"><i class="bi bi-pencil"></i></a>
-                            <form action="{{ route('service.destroy', $item->id) }}" method="POST">
+                            <a href="{{ route('portofolio.edit', $item->id) }}" class="btn btn-warning mb-2"><i class="bi bi-pencil"></i></a>
+                            <form action="{{ route('portofolio.destroy', $item->id) }}" method="POST">
                                 @method('DELETE')
                                 @csrf
                                 <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button>
