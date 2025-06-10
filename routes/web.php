@@ -22,7 +22,7 @@ Route::get('/', function () {
     $portofolio = Portofolio::all();
     $services = Service::all();
     $produk = Produk::all();
-    $gallery = Gallery::all();
+    $gallery = Gallery::limit(20)->get();
     $berita = Berita::all();
    return view('index', compact('title', 'description', 'keywords', 'author', 'portofolio', 'services', 'produk', 'gallery', 'berita')); 
 });
@@ -34,18 +34,48 @@ Route::get('/tentang', function () {
    return view('about', compact('title', 'description', 'keywords', 'author')); 
 });
 
+Route::get('/gallery', function () {
+    $title = "Tentang Kami - Rafa Jaya Crane | Sewa Alat Berat & Crane Profesional";
+    $description = "Pelajari lebih lanjut tentang Rafa Jaya Crane, penyedia jasa sewa alat berat dan crane terpercaya di Indonesia. Layanan lengkap, aman, dan profesional untuk kebutuhan proyek konstruksi dan industri.";
+    $keywords = "tentang Rafa Jaya Crane, jasa sewa crane, sewa alat berat Indonesia, rental crane profesional, perusahaan alat berat, sewa excavator, jasa ereksi girder, alat berat proyek, sewa truk lowbed, profil perusahaan crane";
+    $author = "Rafa Jaya Crane";
+    $active = "gallery";
+    $data = Gallery::all();
+    return view('gallery', compact('title', 'description', 'keywords', 'author', 'active', 'data'));
+});
+
 Route::get("berita", function() {
     $data = Berita::paginate(10);
     $headline = Berita::inRandomOrder()->first();
-    $meta = Meta::where('id', $headline->id_meta)->first();
+    $other = Berita::inRandomOrder(10)->get();
+    $title = "Rafa Jaya Crane - Jasa Sewa Alat Berat &amp; Crane Profesional";
+    $description = "Rafa Jaya Crane menyediakan layanan sewa alat berat seperti crane, excavator, forklift, dan trailer untuk kebutuhan proyek konstruksi dan industri di seluruh Indonesia. Solusi terbaik untuk rental alat berat terpercaya.";
+    $keywords = "sewa alat berat, rental crane, sewa crane, sewa excavator, jasa ereksi girder, rafa jaya crane, sewa forklift, rental alat berat proyek, sewa truck lowbed, jasa konstruksi";
+    $author = "Rafa Jaya Crane";
+
     return view("berita", [
+        'active' => 'berita',
+        'title' => $title,
+        'description' => $description,
+        'keywords' => $keywords,
+        'author' => $author,
+        'data' => $data,
+        'headline' => $headline,
+        'other' => $other
+    ]);
+});
+
+Route::get("berita/{slug}", function($slug) {
+    $data = Berita::where('slug', $slug)->first();
+    $meta = Meta::where('id', $data->id_meta)->first();
+    
+    return view("berita_detail", [
         'active' => 'berita',
         'title' => $meta->title,
         'description' => $meta->description,
         'keywords' => $meta->keywords,
         'author' => $meta->author,
-        'data' => $data,
-        'headline' => $headline,
+        'data' => $data
     ]);
 });
 
@@ -61,6 +91,36 @@ Route::get("service/{slug}", function($slug) {
         'author' => $meta->author,
         'data' => $data
     ]);
+});
+
+Route::get("produk/{slug}", function($slug) {
+    $data = Produk::where('slug', $slug)->first();
+    $meta = Meta::where('id', $data->id_meta)->first();
+    
+    return view("produk_detail", [
+        'active' => 'produk',
+        'title' => $meta->title,
+        'description' => $meta->description,
+        'keywords' => $meta->keywords,
+        'author' => $meta->author,
+        'data' => $data
+    ]);
+});
+
+Route::get("produks", function() {
+    $title = "Tentang Kami - Rafa Jaya Crane | Sewa Alat Berat & Crane Profesional";
+    $description = "Pelajari lebih lanjut tentang Rafa Jaya Crane, penyedia jasa sewa alat berat dan crane terpercaya di Indonesia. Layanan lengkap, aman, dan profesional untuk kebutuhan proyek konstruksi dan industri.";
+    $keywords = "tentang Rafa Jaya Crane, jasa sewa crane, sewa alat berat Indonesia, rental crane profesional, perusahaan alat berat, sewa excavator, jasa ereksi girder, alat berat proyek, sewa truk lowbed, profil perusahaan crane";
+    $author = "Rafa Jaya Crane";
+    return view("produks", [
+        'active' => 'produk',
+        'data' => Produk::all(),
+        'title' => $title,
+        'description' => $description,
+        'keywords' => $keywords,
+        'author' => $author
+    ]);
+    
 });
 
 Route::middleware('auth')->prefix('admin')->group(function () {

@@ -56,10 +56,10 @@
             <div class="collapse navbar-collapse justify-content-end align-items-center" id="navbarNav">
                 <ul class="navbar-nav fw-semibold d-flex gap-3" style="font-size: 16px">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Beranda</a>
+                        <a class="nav-link" aria-current="page" href="/">Beranda</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/tentang">Tentang Kami</a>
+                        <a class="nav-link" aria-current="page" href="/tentang">Tentang Kami</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/#layanan">Layanan</a>
@@ -100,37 +100,29 @@
                 </div>
                 <div class="col-6 col-md-2">
                     <h5 class="fw-bold">Layanan</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="text-dark">Sewa Crane</a></li>
-                        <li><a href="#" class="text-dark">Sewa Forklift</a></li>
-                        <li><a href="#" class="text-dark">Sewa Truk</a></li>
-                        <li><a href="#" class="text-dark">Sewa Exacavator</a></li>
+                    <ul class="">
+                        @foreach (\App\Models\Service::get() as $item)
+                            <li><a href="/service/{{ $item->slug }}" target="_blank" class="text-dark">{{ $item->title }}</a></li>
+                        @endforeach
                     </ul>
                 </div>
                 <div class="col-6 col-md-2">
                     <h5 class="fw-bold">Produk</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="text-dark">Produk A</a></li>
-                        <li><a href="#" class="text-dark">Produk B</a></li>
-                        <li><a href="#" class="text-dark">Produk C</a></li>
-                        <li><a href="#" class="text-dark">Produk D</a></li>
+                    <ul class="">
+                        @foreach (\App\Models\Produk::limit(5)->get() as $item)
+                            <li><a href="/produk/{{ $item->slug }}" target="_blank" class="text-dark">{{ $item->title }}</a></li>
+                        @endforeach
+                        <li><a href="/produks" target="_blank" class="text-dark">Lihat Lainya</a></li>
                     </ul>
                 </div>
                 <div class="col-12 col-md-4">
                     <h5 class="fw-bold">Contact</h5>
-                    <p>Email: ridwan.yip347@gmail.com</p>
+                    <p>Email: rafajayacrane@gmail.com</p>
                     <p>Phone: +62 813 8101 2840</p>
                     <h5 class="fw-bold mt-3">Location</h5>
+                    <p>Jalan Raya Merak 009 Grogol, Cilegon, Banten</p>
                     <div id="map" style="height: 150px;">
-                        <iframe 
-                            src="https://www.google.com/maps/embed?pb=...YOUR_MAP_EMBED_URL..." 
-                            width="100%" 
-                            height="100%" 
-                            style="border:0;" 
-                            allowfullscreen="" 
-                            loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11511.155200138302!2d106.0270447116565!3d-6.003170158969172!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e418e23ce39db21%3A0x5a68abfed5f67249!2sJl.%20Raya%20Merak%2C%20Kotabumi%2C%20Kec.%20Purwakarta%2C%20Kota%20Cilegon%2C%20Banten%2042431!5e1!3m2!1sid!2sid!4v1749544940885!5m2!1sid!2sid" style="border:0; width: 100%;" height="150" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>

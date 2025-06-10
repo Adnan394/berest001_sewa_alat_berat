@@ -106,12 +106,12 @@
             <h3 class="text-center mb-3">Produk Yang Kami Tawarkan Lengkap!</h3>
             <div class="d-flex justify-content-center gap-3 flex-wrap">
                 @foreach ($produk as $item)
-                    <div class="card" style="width: 16rem">
+                    <a href="/produk/{{ $item->slug }}" class="card text-decoration-none text-dark" style="width: 16rem">
                         <img loading="lazy" src="{{ asset($item->image) }}" class="card-img-top" style="height: 150px; object-fit: cover" alt="...">
                         <div class="card-body">
                             <p style="font-size: 16px; font-weight: bold" class="card-title fw-semibold">{{ $item->title }}</p>
                         </div>
-                    </div>
+                    </a>
                 @endforeach
             </div>
 
@@ -148,22 +148,22 @@
             <div class="d-block mx-auto mb-5" style="height: 5px; width: 150px; background-color: #E89B1A"></div>
             <div class="d-flex flex-wrap justify-content-center gap-3">
                 @foreach ($berita as $item)
-                    <div class="card" style="width: 16rem; position: relative">
+                    <a href="/berita/{{ $item->slug }}" class="card text-decoration-none text-dark" style="width: 16rem; position: relative">
                         <img loading="lazy" src="{{ asset($item->image) }}" class="card-img-top" style="height: 150px; object-fit: cover" alt="...">
                         <span class="position-absolute badge rounded-pill bg-danger" style="font-size: 10px; z-index: 1 ; top: 10px; left: 10px">
                             Trending
                         </span>
-                        <div class="card-body px-2 py-1">
+                        <div class="card-body px-3 pt-1 pb-2">
                             <span style="font-size: 10px">{{ \Carbon\Carbon::parse($item->created_at)->diffForHumans() }}</span>
                             <p style="font-size: 14px" class="card-title fw-semibold">{{ $item->title }}</p>
                             <p style="font-size: 12px" class="card-text">{{ Str::limit($item->description, 100) }}</p>
                         </div>
-                    </div>
+                    </a>
                 @endforeach
             </div>
 
             <div class="d-flex justify-content-center">
-                <a href="" class="btn mt-3 fw-semibold" style="background-color: #E89B1A">Lihat Berita Lainya</a>
+                <a href="/berita" class="btn mt-3 fw-semibold" style="background-color: #E89B1A">Lihat Berita Lainya</a>
             </div>
         </div>
     </section>
@@ -179,7 +179,7 @@
             </div>
 
             <div class="d-flex justify-content-center">
-                <a href="" class="btn mt-3 fw-semibold" style="background-color: #E89B1A">Lihat Gallery Lengkap</a>
+                <a href="/gallery" class="btn mt-3 fw-semibold" style="background-color: #E89B1A">Lihat Gallery Lengkap</a>
             </div>
         </div>
     </section>
